@@ -5,7 +5,7 @@ import random
 
 class Play:
     def __init__(self):
-        self.num_balls = 10
+        self.num_balls = 5
         turtle.speed(0)
         turtle.tracer(0)
         turtle.hideturtle()
@@ -40,14 +40,15 @@ class Play:
             turtle.forward(2*self.canvas_height)
             turtle.left(90)
 
-dt = 0.2 # time step
+dt = 0.7 # time step
 Tom = turtle.Turtle()
 tom_color = (255, 0, 0)
 test = Number(Tom, tom_color)
-delay_in_seconds = 0.2
+delay_in_seconds = 0.01
 test_b = Ball()
 play = Play()
 counter = 0
+frame_count = 0
 while (True):
     turtle.clear()
     play.draw_border()
@@ -55,9 +56,12 @@ while (True):
         test_b.draw_ball(play.ball_color[i], play.ball_radius, play.xpos[i], play.ypos[i])
         test_b.move_ball(i, play.xpos, play.ypos, play.vx, play.vy, dt)
         test_b.update_ball_velocity(i, play.xpos, play.ypos, play.vx, play.vy, play.canvas_width, play.canvas_height, play.ball_radius)
-    test.clear()
+    test.clear() 
     test.draw(Tom, counter)
-    counter = (counter + 1) % 10
+    frame_count += 1
+    if frame_count >= 20:
+        counter = (counter + 1) % 10
+        frame_count = 0
     test.my_delay(delay_in_seconds)
     
     turtle.update()
